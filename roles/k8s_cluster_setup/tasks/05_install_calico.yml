@@ -1,8 +1,23 @@
 ---
-- name: Calico Operator 적용
+- name: Calico Operator CRDs 적용 
   become: false
-  ansible.builtin.command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.31.3/manifests/tigera-operator.yaml
+  ansible.builtin.command: >
+    kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.31.3/manifests/operator-crds.yaml
+  register: crd_result
+  failed_when: crd_result.rc != 0 and "AlreadyExists" not in crd_result.stderr   # 이미 존재하면 실행하지 않음
 
-- name:  Calico Custom Resources 적용
+- name: Calico Operator 적용 
   become: false
-  ansible.builtin.command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.31.3/manifests/custom-resources.yaml
+  ansible.builtin.command: >
+    kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.31.3/manifests/tigera-operator.yaml
+  register: operator_result
+  failed_when: operator_result.rc != 0 and "AlreadyExists" not in operator_result.stderr   # 이미 존재하면 실행하지 않음
+
+- name: Calico Custom Resources 적용 
+  become: false
+  ansible.builtin.command: >
+    kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.31.3/manifests/custom-resources.yaml
+  register: cr_result
+  failed_when: cr_result.rc != 0 and "AlreadyExists" not in cr_result.stderr   # 이미 존재하면 실행하지 않음
+
+# [확인] watch kubectl get tigerastatus

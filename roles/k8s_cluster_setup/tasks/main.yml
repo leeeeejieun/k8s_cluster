@@ -10,7 +10,7 @@
 
 - name: 4. control-plane node 초기화
   ansible.builtin.include_tasks: 04_init_control_plane.yml
-  when: "'control_plane' in group_names"
+  when: inventory_hostname == groups['control_plane'][0]
 
 - name: 5. Calico 네트워크 플러그인 설치
   ansible.builtin.include_tasks: 05_install_calico.yml

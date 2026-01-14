@@ -5,3 +5,8 @@
     - ansible.builtin.include_role:
         name: k8s_cluster_setup
 
+# - name: Proxy Setup
+#   hosts: proxy
+#   tasks:
+#     - ansible.builtin.include_role:
+#         name: reverse_proxy_setup

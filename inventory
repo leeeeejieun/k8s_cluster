@@ -3,10 +3,8 @@ vm1
 vm2
 vm3
 
-[worker_nodes]
+[proxy]
 vm4
 
 [kubernetes:children]
 control_plane
-worker_nodes
-  

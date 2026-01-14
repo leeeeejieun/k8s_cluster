@@ -28,4 +28,4 @@
   when:
     - inventory_hostname != groups['control_plane'][0]
   args:
-    creates: /etc/kubernetes/kubelet.conf
+    creates: /etc/kubernetes/kubelet.conf     # 이미 조인된 경우 다시 실행하지 않음
