@@ -1,0 +1,6 @@
+---
+- name: Cluster Setup
+  hosts: set
+  tasks:
+    - ansible.builtin.include_role:
+        name: waf_setup

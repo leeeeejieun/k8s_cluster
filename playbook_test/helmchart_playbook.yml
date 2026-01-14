@@ -1,0 +1,6 @@
+---
+- name: Helm chart base install
+  hosts: control_plane
+  become: yes
+  roles:
+    - helmchart_setup

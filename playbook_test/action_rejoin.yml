@@ -1,0 +1,12 @@
+---
+- name: Recovery - Rejoin Old Master as Replica
+  hosts: storage2
+  become: yes
+  vars_files:
+    - ../group_vars/db/mysql.yml
+    - ../group_vars/db/vault.yml
+  tasks:
+    - name: Run Rejoin Tasks
+      ansible.builtin.include_role:
+        name: db_haproxy_setup
+        tasks_from: rejoin_as_replica.yml
